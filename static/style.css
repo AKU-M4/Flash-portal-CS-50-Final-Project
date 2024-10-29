@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+:root {
+    /*COLORS*/
+    --base: #0e0e10;
+    --second: #111214;
+    --txt: #ffffff;
+    --PRIMARY: #8E05C2;
+    --SECONDARY: #888888;
+    /* GLOW*/
+
+    --glow: 0px 0px 5px var(--PRIMARY),
+            0px 0px 10px var(--PRIMARY);
+
+    --hover-glow: 0px 0px 10px var(--PRIMARY),
+                  0px 0px 25px var(--PRIMARY);
+
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 150vh;
+    background-color: var(--base);
+    color: var(--txt);
+    font-family: "Poppins", sans-serif;
+    line-height: 1.5vh;
+}
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+body::-webkit-scrollbar-track{
+
+    background: var(--second);
+}
+body::-webkit-scrollbar-thumb{
+
+    background: var(--PRIMARY);
+}
+
+
+.hamburger-icon {
+    height: 25px;
+    display: grid;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.hamburger-icon span {
+    display: none;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+nav, .nav-bar {
+    padding-left: 50px;
+    padding-right: 50px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 9vh;
+    background: var(--second);
+}
+
+.logo{
+    cursor: pointer;
+}
+
+.search input {
+    width: 400px;
+    padding: 10px;
+    border: none;
+    border-radius: 30px 0px 0px 30px;
+    background-color: var(--base);
+    color: var(--txt);
+    font-size: 14px;
+    font-weight: 800;
+    outline: none;
+}
+.search button{
+    
+    border: 1px solid var(--second);
+    outline: none;
+    border-radius: 0px 30px 30px 0px;
+    padding: 9.5px 20px;
+    margin-right: 2px;
+    cursor: pointer;
+    color: var(--txt);
+    font-size: 16px;
+    position: absolute;
+    background: var(--base);
+}
+
+.info a {
+    margin-left: 10px;
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 40px;
+    text-decoration: none;
+    color: #efefef;
+    font-weight: 500;
+}
+
+.register {
+    border: 2px solid var(--PRIMARY);
+    box-shadow: var(--glow);
+}
+.register:hover {
+    box-shadow: 0 0 5px var(--PRIMARY),
+    0 0 20px var(--PRIMARY);
+    transition: 1s ease-out;
+}
+
+.login {
+    background-color: var(--PRIMARY);
+    box-shadow: var(--glow)
+}
+
+.login:hover{
+    box-shadow: 0 0 5px var(--PRIMARY),
+    0 0 20px var(--PRIMARY);
+    transition: 1s ease-out;
+}
+
+nav, sidbar {
+    overflow: hidden;
+}
+/* Sidebar Styling */
+sidebar {
+    position: fixed;
+    top: 8vh;
+    width: 50px;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 5px 2px;
+    background-color: var(--second);
+    color: #efefef;
+    transition: width 300ms ease, background-color 500ms ease;
+}
+
+/* Expanded sidebar on hover */
+sidebar:hover {
+    width: 200px;
+    background-color: var(--second);
+}
+
+/* Hide text and other content by default */
+.sidebar-links .link-text,
+.second-list h3,
+.footer {
+    opacity: 0;
+    transition: opacity 0.3 smooth;
+}
+
+/* Show content on hover */
+sidebar:hover .sidebar-links .link-text,
+sidebar:hover .second-list h3,
+sidebar:hover .footer {
+    opacity: 1;
+}
+
+#sidebar .firslist {
+    height: auto;
+}
+
+#sidebar ul {
+    list-style: none;
+}
+
+#sidebar li {
+    display: grid;
+}
+
+.sidebar-links a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 0.85em;
+    gap: 1em;
+    color: #efefef;
+    border-radius: 10px;
+}
+
+.sidebar-links a:hover {
+    text-shadow: 0 0 3px var(--txt),
+    0 0 10px var(--txt);
+    i{
+        transition: 0.3s ease-out;
+        padding: 0px 2px;
+    }
+}
+
+
+.cut {
+    margin-top: 10px;
+    background-color: white;
+    height: 1px;
+    width: 85%;
+}
+
+.second-list {
+    padding-top: 10px;
+}
+
+.title {
+    padding: 10px 20px 10px 10px;
+}
+.footer{
+    padding-top: 20px;
+}
+.footer a{
+    display: grid;
+    font-size: 13px;
+    color: white;
+    text-decoration: none;
+    justify-content: space-around;
+}
+
+.contact-button {
+    text-align: center;
+    padding: 15px 20px;
+    border-radius: 40px;
+    margin-bottom: 20px;
+    border: 3px solid var(--PRIMARY);
+    
+    cursor: pointer;
+    
+}
+.contact-button:hover {
+    box-shadow: 0px 0px 10px var(--PRIMARY),
+    0px 0px 25px var(--PRIMARY);
+    transition: 0.5s ease-out;
+    margin-top: 1px;
+}
+
+.contact-button a{
+    font-size: 14px;
+}
+
+.links a{
+    text-align: left;
+    padding: 5px 0;
+}
+
+.footer h4{
+    padding-top: 30px;
+    text-align: center;
+}
+
+
+/* MAIN CONTENT */
+
+main {
+    margin-left: 5rem;
+    padding: 1rem;
+    top: 50px;
+    width: 90%;
+    display: grid;
+    gap: 2em;
+}
+
+.section-style{
+    padding: 20px;
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+    background:  var(--second);
+    min-height: 0px;
+}
+
+.image-container object{
+    margin-top: 20px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    position: relative;
+    opacity: 0.5;
+    overflow: hidden;
+}
+
+.image-container li{
+    list-style: none;
+}
+
+

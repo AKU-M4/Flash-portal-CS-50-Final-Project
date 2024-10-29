@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    HOME
+{% endblock %}
+
+{% block main %}
+
+<div class="section-1">
+        <div class="section-style">
+            <h3>Featured games</h3>
+            <form action="/buy" method="Post">
+                <div class="image-container">
+                    <li>
+                        <a href="game.html">
+                            <object data="{{ url_for('static', filename='jpg.') }}" ></object>
+                            <i class="fa-solid fa-file-invoice fa-xl"></i>
+                            <div class="image-content">
+                                <h5> name</h5>
+                                <button type="submit">499$</button>
+                            </div>
+                        </a>
+                    </li>
+                </div>
+            </form>
+        </div>
+</div>
+    <div class="section-2">
+        <div class="section-style">
+            <h3>Recently played</h3>
+        </div>
+    </div> 
+{% endblock %}
