@@ -25,7 +25,9 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+html body {
+    background-color: var(--base);
+}
 body {
     min-height: 150vh;
     background-color: var(--base);
@@ -64,13 +66,15 @@ body::-webkit-scrollbar-thumb{
 nav, .nav-bar {
     padding-left: 50px;
     padding-right: 50px;
-    position: sticky;
+    position: fixed; /* Changed from sticky to fixed */
     top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 9vh;
     background: var(--second);
+    width: 100%;
+    z-index: 1000; /* Added z-index to ensure nav stays on top */
 }
 
 .logo{
@@ -133,20 +137,19 @@ nav, .nav-bar {
     transition: 1s ease-out;
 }
 
-nav, sidbar {
-    overflow: hidden;
-}
 /* Sidebar Styling */
 sidebar {
     position: fixed;
-    top: 8vh;
+    top: 9vh; /* Changed from 8vh to 9vh to match navbar height */
     width: 50px;
-    height: 100vh;
+    height: 100vh; /* Adjusted height to account for navbar */
     box-sizing: border-box;
     padding: 5px 2px;
     background-color: var(--second);
     color: #efefef;
     transition: width 300ms ease, background-color 500ms ease;
+    z-index: 999; /* Added z-index just below navbar */
+    overflow-y: auto; /* Added vertical scroll if needed */
 }
 
 /* Expanded sidebar on hover */
@@ -263,34 +266,132 @@ sidebar:hover .footer {
 
 main {
     margin-left: 5rem;
+    margin-top: 9vh; /* Added margin-top to account for fixed navbar */
     padding: 1rem;
-    top: 50px;
-    width: 90%;
-    display: grid;
-    gap: 2em;
+    width: calc(100% - 5rem); /* Adjusted width to account for sidebar */
+    min-height: calc(100vh - 9vh); /* Adjusted minimum height */
+    box-sizing: border-box;
 }
-
-.section-style{
+main h3{
     padding: 20px;
-    width: auto;
-    height: auto;
-    border-radius: 20px;
-    background:  var(--second);
-    min-height: 0px;
+}
+/* Shop content grid layout */
+.shop-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.image-container object{
-    margin-top: 20px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 20px;
+/* Game container styling */
+.game-container {
+    background: var(--second);
+    border-radius: 15px;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    opacity: 0.5;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.image-container li{
-    list-style: none;
+.game-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(142, 5, 194, 0.2);
 }
 
+/* Image container and styling */
+.game-container a {
+    text-decoration: none;
+    color: var(--txt);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.game-container img {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.game-container:hover img {
+    transform: scale(1.02);
+}
+
+/* Game title styling */
+.game-container span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 12px 0;
+    color: var(--txt);
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.game-container:hover span {
+    color: var(--PRIMARY);
+}
+
+/* Price styling */
+.game-container p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--PRIMARY);
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(142, 5, 194, 0.1);
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.game-container:hover p {
+    background: var(--PRIMARY);
+    color: white;
+    box-shadow: 0 0 15px rgba(142, 5, 194, 0.3);
+}
+
+/* Game tag (optional - add to your HTML if you want to show game categories) */
+.game-tag {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: rgba(142, 5, 194, 0.9);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: white;
+    z-index: 1;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1400px) {
+    .shop-content {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .shop-content {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .game-container img {
+        height: 200px;
+    }
+
+    .game-container span {
+        font-size: 1rem;
+    }
+
+    .game-container p {
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,4 @@
+Publisher: Menace.ch
+Release Date: 2004
+Description: A fan-made Flash adaptation of Sonic the Hedgehog, with familiar gameplay elements like rings, speed, and classic Sonic levels.
+Controls: Arrow keys to move, Space to jump, Down + Space for spin dash.

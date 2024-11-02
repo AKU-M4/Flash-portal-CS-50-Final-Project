@@ -1,0 +1,4 @@
+Publisher: Nitrome
+Release Date: 2007
+Description: A puzzle-platform game where the player controls a character with magnetic powers, allowing them to interact with metal objects and solve puzzles.
+Controls: Arrow keys to move, Space to activate magnetism.

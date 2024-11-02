@@ -1,0 +1,4 @@
+Publisher: Rexona (for marketing)
+Release Date: 2007
+Description: A running game inspired by the Spanish tradition of the running of the bulls. Players must escape various pursuers in international settings. Developed as an advergame to promote Rexona deodorant.
+Controls: Arrow keys to move, Space to jump.

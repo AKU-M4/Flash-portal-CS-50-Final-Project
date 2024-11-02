@@ -1,0 +1,4 @@
+Publisher: Cartoon Network
+Release Date: 2007
+Description: Based on the popular Ben 10 series, this game lets players control various alien forms to fight enemies in a side-scrolling action format. Each alien has unique abilities, making the gameplay varied.
+Controls: Arrow keys to move, Z to attack, X for special ability.

@@ -1,0 +1,4 @@
+Publisher: MadPuffers
+Release Date: 2016
+Description: A 2-player basketball game with over-the-top moves and iconic players. Each player can use special skills, allowing for unique slam dunks and powerful shots. It’s part of the Legends series by MadPuffers, which also includes games like Football Legends.
+Controls: Arrow keys to move, Z to shoot/steal, X for special move, Space to dunk.

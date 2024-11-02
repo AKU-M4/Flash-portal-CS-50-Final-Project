@@ -1,0 +1,4 @@
+Publisher: Armor Games
+Release Date: 2007
+Description: A survival horror game where the player defends against waves of zombies, managing resources and survivors.
+Controls: Arrow keys to move, Mouse to aim and shoot, R to reload.

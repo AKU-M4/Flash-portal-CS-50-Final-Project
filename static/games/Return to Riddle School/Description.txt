@@ -1,0 +1,4 @@
+Publisher: JonBro
+Release Date: 2006
+Description: A point-and-click adventure game where the player has to solve puzzles to escape school. Known for its humor and clever puzzle design, it's part of a series.
+Controls: Mouse to interact.

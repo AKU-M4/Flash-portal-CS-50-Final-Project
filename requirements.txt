@@ -1,0 +1,1 @@
+"source venv/bin/activate" use this command to Access the virtual environment.

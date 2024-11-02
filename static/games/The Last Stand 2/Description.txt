@@ -1,0 +1,4 @@
+Publisher: Armor Games
+Release Date: 2008
+Description: A follow-up to The Last Stand, with added strategy elements and new locations to defend.
+Controls: Similar to the first game.

@@ -1,0 +1,4 @@
+Publisher: McleodGaming
+Release Date: 2006
+Description: A fan-made fighting game with characters from franchises like Mario, Sonic, and others, inspired by the Super Smash Bros. series.
+Controls: Arrow keys to move, O to jump, P for attack.

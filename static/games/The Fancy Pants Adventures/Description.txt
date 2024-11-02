@@ -1,0 +1,4 @@
+Publisher: Brad Borne
+Release Date: 2006
+Description: A platformer featuring a stick figure with "fancy pants." Known for smooth animations and physics-based gameplay.
+Controls: Arrow keys to move, S to jump.

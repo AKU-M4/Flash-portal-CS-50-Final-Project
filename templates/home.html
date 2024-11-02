@@ -13,7 +13,6 @@
                 <div class="image-container">
                     <li>
                         <a href="game.html">
-                            <object data="{{ url_for('static', filename='jpg.') }}" ></object>
                             <i class="fa-solid fa-file-invoice fa-xl"></i>
                             <div class="image-content">
                                 <h5> name</h5>
@@ -25,9 +24,25 @@
             </form>
         </div>
 </div>
-    <div class="section-2">
-        <div class="section-style">
-            <h3>Recently played</h3>
-        </div>
-    </div> 
+<div class="section-2">
+    <div class="section-style">
+        <h3>Recently played</h3>
+    </div>
+</div> 
+<div id="container"></div>
+<div class="game">
+
+    <script>
+        window.RufflePlayer = window.RufflePlayer || {};
+        
+        window.addEventListener("DOMContentLoaded", () => {
+            let ruffle = window.RufflePlayer.newest();
+            let player = ruffle.createPlayer();
+        let container = document.getElementById("container");
+        container.appendChild(player);
+        player.load("{{ url_for('static', filename='games/boxhead.swf') }}");
+    });
+    </script>   
+</div>
+
 {% endblock %}

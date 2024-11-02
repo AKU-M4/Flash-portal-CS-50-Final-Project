@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/cdc84cb5ad.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='logo1.png') }}" rel="icon" >
     <title>FlashPortal/{% block title%}{% endblock %}</title>
@@ -11,7 +12,7 @@
 <body>
     <nav class ="nav-bar">
             <div class="logo">
-                <svg  onclick="location.href='index.html'" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1091.79 612.32" height="70px" width="70px">
+                <svg  onclick="location.href='/'" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1091.79 612.32" height="70px" width="70px">
                     <defs>
                     <style>
                       .cls-1 {
@@ -54,7 +55,7 @@
             <div class="first-list">
                 <ul>
                     <li>
-                        <a href="Home.html">
+                        <a href="/">
                             <i class="fa-solid fa-house"></i>
                             <span class="link-text">Home</span>
                         </a>
@@ -66,7 +67,7 @@
                             <i class="fa-solid fa-folder-open"></i>
                             <span class="link-text">Library</span>
                         </a>
-                        <a href="shop.html">
+                        <a href="shop">
                             <i class="fa-solid fa-shop"></i>
                             <span class="link-text">Shop</span>
                         </a>
@@ -127,7 +128,7 @@
 </body>
 </html>
 
-<!-- MAYBE I CAN USE LATER
+<!-- MAYBE I CAN USE LATERear
 <script>
     function toggleMenu() {
         const sidebar = document.getElementById("sidebar");

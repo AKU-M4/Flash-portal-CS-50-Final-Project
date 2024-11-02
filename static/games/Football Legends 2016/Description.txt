@@ -1,0 +1,4 @@
+Publisher: MadPuffers
+Release Date: 2016
+Description: A football game that combines sports gameplay with arcade-style action. Players can choose famous football players with exaggerated special abilities and play solo or with a friend.
+Controls: Arrow keys to move, X to shoot/tackle, Z for special move.

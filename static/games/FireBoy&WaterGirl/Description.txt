@@ -1,0 +1,4 @@
+Publisher: Oslo Albet
+Release Date: 2009
+Description: A puzzle-platformer where two players work together to solve levels by controlling Fireboy and Watergirl, who have unique abilities. Cooperation is key as each character has to avoid obstacles that are hazardous only to them.
+Controls: Arrow keys for Fireboy, WASD keys for Watergirl.

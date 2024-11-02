@@ -1,0 +1,4 @@
+Publisher: We Create Stuff
+Release Date: 2007
+Description: A fan-made adaptation of Valve's Portal, featuring many of the original mechanics in a 2D format. Players solve puzzles using portal technology, manipulating space and physics to progress.
+Controls: Arrow keys to move, Q for blue portal, E for yellow portal.

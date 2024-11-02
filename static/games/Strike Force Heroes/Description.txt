@@ -1,0 +1,4 @@
+Publisher: Armor Games & Sky9 Games
+Release Date: 2012
+Description: A side-scrolling shooter with a storyline and different character classes. Players complete missions, upgrade abilities, and use various weapons.
+Controls: Arrow keys to move, Mouse to aim and shoot, 1-5 for weapon selection.

@@ -1,0 +1,4 @@
+Publisher: Runouw
+Release Date: 2009
+Description: A fan-made Mario game combining elements of Super Mario 64 and Super Mario Sunshine. Features classic platforming with unique power-ups and level designs.
+Controls: Arrow keys to move, Z to jump, X for spin.

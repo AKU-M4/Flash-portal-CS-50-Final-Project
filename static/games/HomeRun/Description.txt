@@ -1,0 +1,4 @@
+Publisher: Ezone
+Release Date: Early 2000s
+Description: A simple but challenging game where the player attempts to keep a drunken character walking in a straight line as long as possible without falling over.
+Controls: Arrow keys to balance.

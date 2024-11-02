@@ -1,0 +1,4 @@
+Publisher: GameTap
+Release Date: Early 2000s
+Description: A simplified Flash version of Street Fighter, with many of the iconic characters and moves adapted for Flash gameplay.
+Controls: Arrow keys to move, various keys for attacks.
