@@ -2,18 +2,18 @@
 
 {% block title %}
     Shop
-{% endblock  %}
-    anything
+{% endblock %}
+
 {% block main %}
     <h3>ALL GAMES</h3>
     <div class="shop-content">
         {% for game in games_data %}
             <div class="game-container">
-                <a href="game/{{ game['title'] }}">
-                    <img src="{{ game['thumbnail'] }}" alt="{{ game['title'] }}">
-                    <span>{{ game['title'] }}</span>
+                <a href="game/{{ game.title }}">
+                    <img src="{{ url_for('static', filename='games/' + game.thumbnail) }}" alt="{{ game.title }}">
+                    <span>{{ game.title }}</span>
                 </a>
-                <p> {{ game['price'] }} FC</p>
+                <p>{{ game.price }} FC</p>
             </div>
         {% endfor %}
     </div>
