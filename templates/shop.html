@@ -9,11 +9,13 @@
     <div class="shop-content">
         {% for game in games_data %}
             <div class="game-container">
-                <a href="game/{{ game.title }}">
-                    <img src="{{ url_for('static', filename='games/' + game.thumbnail) }}" alt="{{ game.title }}">
-                    <span>{{ game.title }}</span>
+                <!-- Correctly linking to the game's page -->
+                <a href="{{ url_for ('game', title = game['title']) }} ">
+                    <!-- Correctly referencing the game's thumbnail -->
+                    <img src="{{ game['thumbnail'] }}" alt="{{ game['title'] }}">
+                    <span>{{ game['title'] }}</span>
                 </a>
-                <p>{{ game.price }} FC</p>
+                <p>{{ game['price'] }} FC</p>
             </div>
         {% endfor %}
     </div>

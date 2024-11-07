@@ -118,23 +118,21 @@ nav, .nav-bar {
 
 .register {
     border: 2px solid var(--PRIMARY);
-    box-shadow: var(--glow);
 }
 .register:hover {
     box-shadow: 0 0 5px var(--PRIMARY),
     0 0 20px var(--PRIMARY);
-    transition: 1s ease-out;
+    transition: 0.5s ease-out;
 }
 
 .login {
     background-color: var(--PRIMARY);
-    box-shadow: var(--glow)
 }
 
 .login:hover{
     box-shadow: 0 0 5px var(--PRIMARY),
     0 0 20px var(--PRIMARY);
-    transition: 1s ease-out;
+    transition: 0.5s ease-out;
 }
 
 /* Sidebar Styling */
@@ -354,6 +352,21 @@ main h3{
     background: var(--PRIMARY);
     color: white;
     box-shadow: 0 0 15px rgba(142, 5, 194, 0.3);
+}
+
+.game-preview {
+    display: grid;
+    
+}
+
+.game-preview {
+    white-space: pre-line;
+    line-height: 3; 
+    margin: 1.5rem 0; 
+    padding: 1rem; 
+    background-color: var(--second);
+    border-radius: 8px;
+    box-shadow: var(--glow);
 }
 
 /* Game tag (optional - add to your HTML if you want to show game categories) */
