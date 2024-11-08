@@ -46,8 +46,16 @@
             </form>
         </div>
         <div class="info">
-            <a href="register" class="register">Register</a>
-            <a href="login" class="login">Log In</a>
+            {% if username is none %}
+                <a href="register" class="register">Register</a>
+                <a href="login" class="login">Log In</a>
+            {% else %}
+                <a href="profile" class="profile-nav">
+                    <img src="/static/user.png" alt="" height="60px" width="60px">
+                    <span class="profile-text">{{ username }}</span>
+                </a>
+                <span class="nav-coins">{{ coins }} <i class="fa-solid fa-coins"></i></span>
+            {% endif %}
         </div>
     </nav>
     <sidebar id="sidebar">
@@ -124,24 +132,17 @@
      </sidebar>
      <main>
         {% block main %}{% endblock %}
-     </main>
+    </main>
+</div>
+
+<script>
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const sidebar = document.getElementById('sidebar');
+
+    hamburgerMenu.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-hidden');
+        hamburgerMenu.classList.toggle('open');
+    });
+</script>
 </body>
 </html>
-
-<!-- MAYBE I CAN USE LATERear
-<script>
-    function toggleMenu() {
-        const sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("open");
-    }
-</script>
-<div class="hamburger-icon" onclick="toggleMenu()">
-    <span ></span>
-    <span ></span>
-    <span ></span>
-</div>
-/<a href="recently.html">
-    <i class="fa-solid fa-clock-rotate-left"></i>
-    <span class="link-text">Recently played</span>
-</a>
--->
