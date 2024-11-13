@@ -5,12 +5,47 @@
 {% endblock %}
 
 {% block main %}
+    {% if not owned %}
         <div class="game-preview">
             <h4>Game Preview:</h4>
             <img src="{{ url_for('static', filename=game['preview'].replace('static/', '')) }}" alt="Preview of {{ game['title'] }}" width="700px" height="500px">
-            <br>
-            <p> {{ game['description'] }} </p>
-            <br>
-            <button type="submit">{{ game['price'] }}</button>
+            <p>{{ game['description'] }}</p>
+            <form action="{{ url_for('game', title=game['title']) }}" method="post">
+                <button type="submit">Buy for {{ game['price'] }} FC</button>
+            </form>
         </div>
+    {% else %}
+        <div class="game-content">
+            <h3>{{ game['title'] }}</h3>
+            <div id="container"></div>
+            <div class="game-swf">
+                <script>
+                    window.RufflePlayer = window.RufflePlayer || {};
+                    window.addEventListener("DOMContentLoaded", () => {
+                        let ruffle = window.RufflePlayer.newest();
+                        let player = ruffle.createPlayer();
+                        let container = document.getElementById("container");
+                        container.appendChild(player);
+                        player.load("{{ url_for('static', filename=game['url'].replace('static/', '')) }}");
+                    });
+                </script>
+            </div>
+            <div class="game-description">
+                <p>{{ game['description'] }}</p>
+            </div>
+            
+            <div class="featured-games">
+                <h3>You might also like:</h3>
+                {% for game in featured_games %}
+                <div class="game-container">
+                    <a href="{{ url_for('game', title=game['title']) }}">
+                        <img src="{{ url_for('static', filename=game['thumbnail'].replace('static/', '')) }}" alt="{{ game['title'] }}" width="80px" height="80px">
+                        <span>{{ game['title'] }}</span>
+                    </a>
+                    <p>{{ game['price'] }} FC</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

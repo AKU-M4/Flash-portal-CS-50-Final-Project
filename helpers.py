@@ -1,5 +1,7 @@
+from functools import wraps
 import os
 from sqlite3 import connect, Row
+from flask import session, redirect, render_template
 
 def get_db_connection():
     conn = connect('database.db', check_same_thread = False)
@@ -76,3 +78,13 @@ def insert_game_in_db(games_data):
                         (game["url"], game["thumbnail"], game["preview"], game["category"], game["price"], game["description"], game["title"]))
     conn.commit()
     conn.close()
+
+def login_required(f):
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        return f(*args, **kwargs)
+
+    return decorated_function

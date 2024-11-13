@@ -7,10 +7,15 @@
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='logo1.png') }}" rel="icon" >
-    <title>FlashPortal/{% block title%}{% endblock %}</title>
+    <title>FlashPortal{% block title%}{% endblock %}</title>
 </head>
 <body>
     <nav class ="nav-bar">
+        <div class="hamburger-icon" id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
             <div class="logo">
                 <svg  onclick="location.href='/'" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1091.79 612.32" height="70px" width="70px">
                     <defs>
@@ -39,110 +44,113 @@
                   </g>
                 </svg>
             </div>
-        <div class="search">
-            <form action="/search" method="post">
-                <input autocomplete="off" name="search" type="text" placeholder="Search">
-                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
-        </div>
-        <div class="info">
-            {% if username is none %}
-                <a href="register" class="register">Register</a>
-                <a href="login" class="login">Log In</a>
-            {% else %}
-                <a href="profile" class="profile-nav">
-                    <img src="/static/user.png" alt="" height="60px" width="60px">
-                    <span class="profile-text">{{ username }}</span>
-                </a>
-                <span class="nav-coins">{{ coins }} <i class="fa-solid fa-coins"></i></span>
-            {% endif %}
-        </div>
-    </nav>
-    <sidebar id="sidebar">
-        <div class="sidebar-links">
-            <div class="first-list">
-                <ul>
-                    <li>
-                        <a href="/">
-                            <i class="fa-solid fa-house"></i>
-                            <span class="link-text">Home</span>
-                        </a>
-                        <a href="favorite.html">
-                            <i class="fa-solid fa-star"></i>
-                            <span class="link-text">Favorites</span>
-                        </a>
-                        <a href="library.html">
-                            <i class="fa-solid fa-folder-open"></i>
-                            <span class="link-text">Library</span>
-                        </a>
-                        <a href="/shop">
-                            <i class="fa-solid fa-shop"></i>
-                            <span class="link-text">Shop</span>
-                        </a>
-                  </li>
-               </ul>
+            <div class="search">
+                <form action="/search" method="post">
+                    <input autocomplete="off" name="search" type="text" placeholder="Search">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
             </div>
-            <div class="cut"></div>
-            <div class="second-list">
-
-                    <a href="action.html">
-                        <i class="fa-solid fa-gun"></i>
-                        <span class="link-text">Action</span>
-                    </a>
-                    <a href="arcade.html">
-                        <i class="fa-solid fa-gamepad"></i>
-                        <span class="link-text">Arcade</span>
-                    </a>
-                    <a href="Adventure.html">
-                        <i class="fa-solid fa-person-hiking"></i>
-                        <span class="link-text">Adventure</span>
-                    </a>
-                    <a href="Sports">
-                        <i class="fa-solid fa-basketball"></i>
-                        <span class="link-text">Sports</span>
-                    </a>
-                    <a href="retro.html">
-                        <i class="fa-solid fa-hat-wizard"></i>
-                        <span class="link-text">Rpg</span>
-                    </a>
-                    <a href="puzzle.html">
-                        <i class="fa-solid fa-puzzle-piece"></i>
-                        <span class="link-text">Puzzle</span>
-                    </a>
-                    <a href="horror.html">
-                        <i class="fa-solid fa-ghost"></i>
-                        <span class="link-text">Horror</span>
-                    </a>
+            <div class="info">
+                {% if username is none %}
+                    <a href="register" class="register">Register</a>
+                    <a href="login" class="login">Log In</a>
+                {% else %}
+                    <div class="user-info">
+                        <a href="profile" class="profile-nav">
+                            <img src="/static/user.png" alt="" height="40px" width="40px">
+                            <span class="profile-text">{{ username }}</span>
+                        </a>
+                        <span class="nav-coins">{{ coins }} <i class="fa-solid fa-coins"></i></span>
+                        <a href="logout"><i class="fa-solid fa-right-from-bracket" width="30px" height="30px"></i></a>
+                    </div>
+                {% endif %}
             </div>
-            <div class="cut">
-                <span class="link-text"></span>
-            </div>
-        </div>
-            <div class="footer">
-                <div class="contact-button">
-                    <a href="contact.html">Contact Me</a>
+        </nav>
+        <div class="content-wrapper">
+            <sidebar id="sidebar" class="sidebar-hidden">
+                <div class="sidebar-links">
+                    <div class="first-list">
+                        <ul>
+                            <li>
+                                <a href="/">
+                                    <i class="fa-solid fa-house"></i>
+                                    <span class="link-text">Home</span>
+                                </a>
+                                <a href="favorite.html">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="link-text">Favorites</span>
+                                </a>
+                                <a href="library.html">
+                                    <i class="fa-solid fa-folder-open"></i>
+                                    <span class="link-text">Library</span>
+                                </a>
+                                <a href="/shop">
+                                    <i class="fa-solid fa-shop"></i>
+                                    <span class="link-text">Shop</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cut"></div>
+                    <div class="second-list">
+                        <a href="action.html">
+                            <i class="fa-solid fa-gun"></i>
+                            <span class="link-text">Action</span>
+                        </a>
+                        <a href="arcade.html">
+                            <i class="fa-solid fa-gamepad"></i>
+                            <span class="link-text">Arcade</span>
+                        </a>
+                        <a href="Adventure.html">
+                            <i class="fa-solid fa-person-hiking"></i>
+                            <span class="link-text">Adventure</span>
+                        </a>
+                        <a href="Sports">
+                            <i class="fa-solid fa-basketball"></i>
+                            <span class="link-text">Sports</span>
+                        </a>
+                        <a href="retro.html">
+                            <i class="fa-solid fa-hat-wizard"></i>
+                            <span class="link-text">Rpg</span>
+                        </a>
+                        <a href="puzzle.html">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                            <span class="link-text">Puzzle</span>
+                        </a>
+                        <a href="horror.html">
+                            <i class="fa-solid fa-ghost"></i>
+                            <span class="link-text">Horror</span>
+                        </a>
+                    </div>
+                    <div class="cut">
+                        <span class="link-text"></span>
+                    </div>
                 </div>
-                <div class="links">
-                    <a href="about.html">About</a>
-                    <a href="developer.html">Developers</a>
-                    <a href="all.html">All games</a>
+                <div class="footer">
+                    <div class="contact-button">
+                        <a href="contact.html">Contact Me</a>
+                    </div>
+                    <div class="links">
+                        <a href="about.html">About</a>
+                        <a href="developer.html">Developers</a>
+                        <a href="all.html">All games</a>
+                    </div>
+                    <h4>© Flashportals 2024</h4>
                 </div>
-                <h4>© Flashportals 2024</h4>
-            </div>
-     </sidebar>
-     <main>
-        {% block main %}{% endblock %}
-    </main>
-</div>
-
-<script>
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-    const sidebar = document.getElementById('sidebar');
-
-    hamburgerMenu.addEventListener('click', () => {
-        sidebar.classList.toggle('sidebar-hidden');
-        hamburgerMenu.classList.toggle('open');
-    });
-</script>
-</body>
-</html>
+            </sidebar>
+            <main>
+                {% block main %}{% endblock %}
+            </main>
+        </div>
+    
+        <script>
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const sidebar = document.getElementById('sidebar');
+    
+            hamburgerMenu.addEventListener('click', () => {
+                sidebar.classList.toggle('sidebar-hidden');
+                hamburgerMenu.classList.toggle('open');
+            });
+        </script>
+    </body>
+    </html>

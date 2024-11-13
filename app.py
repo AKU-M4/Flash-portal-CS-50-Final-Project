@@ -1,8 +1,7 @@
 from flask import session, request, render_template, Flask, url_for, redirect, flash
 from livereload import Server
-from helpers import get_game_data, insert_game_in_db, get_db_connection
+from helpers import get_game_data, insert_game_in_db, get_db_connection, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_required, login_user, logout_user
 from flask_session import Session
 import os
 from sqlite3 import connect
@@ -93,22 +92,58 @@ def home():
 
 
 @app.route("/shop")
+@login_required
 def shop():
     insert_game_in_db(get_game_data(game_path))  # Insert game data into the DB
     games_data = db.execute("SELECT * FROM games").fetchall()  
     
-    return render_template("shop.html", games_data=games_data)
+    user_id = session['user_id']
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    if user:
+        username = user[0]
+        coins = user[1]
+
+    return render_template("shop.html", games_data=games_data, username=username, coins=coins)
 
 
 
 @app.route("/game/<title>", methods=["GET", "POST"])
-
+@login_required
 def game(title):
+    user_id = session['user_id']
     
-    game= db.execute("SELECT * FROM games WHERE title = ?", (title,)).fetchone()
+    # Exclude the current game from featured games
+    game = db.execute("SELECT * FROM games WHERE title = ?", (title,)).fetchone()
+    game_id = game['id']
+    featured_games = db.execute("SELECT * FROM games WHERE id != ? ORDER BY RANDOM() LIMIT 6", (game_id,)).fetchall()
+    
+    # Get user info
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    username = user[0]
+    coins = user[1]
+    game_price = game['price']
+    
+    # Check if the game is owned by the user
+    owned = db.execute("SELECT 1 FROM transactions WHERE user_id = ? AND game_id = ?", (user_id, game_id)).fetchone() is not None
 
-    
-    return render_template("game.html", game=game)
+    if request.method == "POST":
+        # Check if user has enough coins
+        if coins < game_price:
+            flash("Insufficient Flash coins")
+            return redirect(url_for("game", title=title))
+
+        # If not owned, purchase the game
+        if not owned:
+            new_balance = coins - game_price
+            db.execute("INSERT INTO transactions (user_id, game_id) VALUES (?, ?)", (user_id, game_id))
+            db.execute("UPDATE users SET coins = ? WHERE id = ?", (new_balance, user_id))
+            
+            coins = new_balance
+            owned = True
+            flash("Thanks for your purchase")
+            db.commit()
+
+    return render_template("game.html", game=game, username=username, coins=coins, featured_games=featured_games, owned=owned)
 
 @app.route('/logout')
 def logout():
