@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title%}
+    library
+{% endblock %}
+
+{% block main %}
+    <h3>Library:</h3>
+    <div class="shop-content">
+        {% for game in games_owned %}
+            <div class="game-container">
+                <!-- Correctly linking to the game's page -->
+                <a href="{{ url_for ('game', title = game['title']) }} ">
+                    <!-- Correctly referencing the game's thumbnail -->
+                    <img src="{{ game['thumbnail'] }}" alt="{{ game['title'] }}">
+                    <span>{{ game['title'] }}</span>
+                </a>
+            </div>
+        {% endfor %}
+        {% if not games_owned %}
+            <p>You dont own any game yet check our <a href="shop.html">Shop</a></p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -74,21 +74,18 @@ def register():
 
 
 @app.route("/", methods=("GET", "POST"))
+@login_required
 def home():
-    if 'user_id' in session:
-        user_id = session['user_id']
-        user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
-        if user:
-            username = user[0]
-            coins = user[1]
-        else:
-            username = None
-            coins = None
-    else:
-        username = None
-        coins = None
+    
+    user_id = session['user_id']
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+        
+    username = user[0]
+    coins = user[1]
 
-    return render_template("home.html", username=username, coins=coins)
+    games = db.execute("SELECT * FROM games").fetchall()
+
+    return render_template("home.html", username=username, coins=coins, games=games)
 
 
 @app.route("/shop")
@@ -136,7 +133,7 @@ def game(title):
         if not owned:
             new_balance = coins - game_price
             db.execute("INSERT INTO transactions (user_id, game_id) VALUES (?, ?)", (user_id, game_id))
-            db.execute("UPDATE users SET coins = ? WHERE id = ?", (new_balance, user_id))
+            db.execute("UPDATE users SET coins = ?, game_id = ? WHERE id = ?", (new_balance, game_id, user_id))
             
             coins = new_balance
             owned = True
@@ -144,6 +141,27 @@ def game(title):
             db.commit()
 
     return render_template("game.html", game=game, username=username, coins=coins, featured_games=featured_games, owned=owned)
+
+@app.route("/library")
+@login_required
+def library():
+    user_id = session['user_id']
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    username = user[0]
+    coins = user[1]    
+
+    games_owned = db.execute("SELECT * FROM games JOIN transactions on games.id = transactions.game_id WHERE transactions.user_id = ?", (user_id,)).fetchall()
+    
+    return render_template ("library.html", username=username, coins=coins, games_owned = games_owned) 
+
+@app.route('/Action')
+@login_required
+def categories():
+    user_id = session['user_id']
+    games = db.exeucte ("SELECT * FROM games WHERE")
+
+
+    return render_template("/<categories>.html")
 
 @app.route('/logout')
 def logout():

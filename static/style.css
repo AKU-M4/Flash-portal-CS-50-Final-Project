@@ -115,10 +115,6 @@ nav, .nav-bar {
     color: #efefef;
     font-weight: 500;
 }
-.profile-nav{
-    align-items: center;
-    display: flex;
-}
 
 .register {
     border: 2px solid var(--PRIMARY);
