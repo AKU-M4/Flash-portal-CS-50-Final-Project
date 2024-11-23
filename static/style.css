@@ -47,7 +47,14 @@ body::-webkit-scrollbar-thumb{
     background: var(--PRIMARY);
 }
 
-
+@media (max-width: 850px) {
+    .hamburger-icon {
+        display: block;
+    }
+    .search input, button{
+        display: none;
+    }
+}
 .hamburger-icon {
     height: 25px;
     display: grid;
