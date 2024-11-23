@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Puzzle
+{% endblock %}
+
+{% block main %}
+    <h3>Puzzle</h3>
+    <div class="shop-content">
+        {% for game in games %}
+            <div class="game-container">
+                <!-- Correctly linking to the game's page -->
+                <a href="{{ url_for ('game', title = game['title']) }} ">
+                    <!-- Correctly referencing the game's thumbnail -->
+                    <img src="{{ game['thumbnail'] }}" alt="{{ game['title'] }}">
+                    <span>{{ game['title'] }}</span>
+                </a>
+                <p>{{ game['price'] }} FC</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

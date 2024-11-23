@@ -1,4 +1,0 @@
-Publisher: Newgrounds (Tom Fulp & Dan Paladin)
-Release Date: July 2005
-Description: A beat-em-up game where you play as a kid wreaking havoc in a park. Known for its humor and cartoonish violence, it’s considered a classic in the Flash game community. Created by the team behind Alien Hominid.
-Controls: Arrow keys to move, A for punch, S for special attack.

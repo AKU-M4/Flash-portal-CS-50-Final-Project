@@ -73,20 +73,67 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/", methods=("GET", "POST"))
-@login_required
+@app.route("/", methods=["GET", "POST"])
 def home():
+    # Check if 'user_id' exists in the session
+    user_id = session.get('user_id')
+
+    if user_id:
+        # Fetch user details if logged in
+        user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+
+        if user:  # Ensure user exists in the database
+            username = user[0]
+            coins = user[1]
+        else:
+            # Handle case where user_id is invalid (e.g., user was deleted)
+            session.pop('user_id', None)
+            return redirect('/login')  # Or render a guest template
+    else:
+        # Handle non-logged-in user
+        username = None
+        coins = None
+
+    # Get featured games with a random selection
+    featured_games = db.execute("""
+        SELECT * FROM games 
+        ORDER BY RANDOM() 
+        LIMIT 6
+    """).fetchall()
+
+    # Get categories without duplicates
+    categories = db.execute("""
+        SELECT DISTINCT category 
+        FROM games
+    """).fetchall()
+
+    return render_template(
+        "home.html", 
+        username=username, 
+        coins=coins, 
+        featured_games=featured_games, 
+        categories=categories,
+    )
+
+@app.route("/search")
+@login_required
+def search():
+
+    return render_template(search.html)
+
+@app.route("/favorites")
+@login_required
+def favorites():
     
     user_id = session['user_id']
     user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
-        
-    username = user[0]
-    coins = user[1]
+    if user:
+        username = user[0]
+        coins = user[1]
 
-    games = db.execute("SELECT * FROM games").fetchall()
+    favorite_games = db.execute("SELECT * FROM games JOIN favorites on games.id = favorites.game_id WHERE favorites.user_id = ?", (user_id,)).fetchall()
 
-    return render_template("home.html", username=username, coins=coins, games=games)
-
+    return render_template("favorites.html", favorite_games=favorite_games, username=username, coins=coins)
 
 @app.route("/shop")
 @login_required
@@ -103,6 +150,17 @@ def shop():
     return render_template("shop.html", games_data=games_data, username=username, coins=coins)
 
 
+@app.route("/library")
+@login_required
+def library():
+    user_id = session['user_id']
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    username = user[0]
+    coins = user[1]    
+
+    games_owned = db.execute("SELECT * FROM games JOIN transactions on games.id = transactions.game_id WHERE transactions.user_id = ? ORDER BY games.title", (user_id,)).fetchall()
+    
+    return render_template ("library.html", username=username, coins=coins, games_owned = games_owned) 
 
 @app.route("/game/<title>", methods=["GET", "POST"])
 @login_required
@@ -111,6 +169,7 @@ def game(title):
     
     # Exclude the current game from featured games
     game = db.execute("SELECT * FROM games WHERE title = ?", (title,)).fetchone()
+   
     game_id = game['id']
     featured_games = db.execute("SELECT * FROM games WHERE id != ? ORDER BY RANDOM() LIMIT 6", (game_id,)).fetchall()
     
@@ -122,8 +181,14 @@ def game(title):
     
     # Check if the game is owned by the user
     owned = db.execute("SELECT 1 FROM transactions WHERE user_id = ? AND game_id = ?", (user_id, game_id)).fetchone() is not None
+    is_favorite = db.execute("SELECT 1 FROM favorites WHERE user_id = ? AND game_id = ?", (user_id, game_id)).fetchone() is not None
 
     if request.method == "POST":
+        #Add to favorite Section
+        if "favorite" in request.form:
+            if not is_favorite:
+                db.execute("INSERT INTO favorites (user_id, game_id) VALUES (?, ?)", (user_id, game_id))
+                db.commit()
         # Check if user has enough coins
         if coins < game_price:
             flash("Insufficient Flash coins")
@@ -142,26 +207,78 @@ def game(title):
 
     return render_template("game.html", game=game, username=username, coins=coins, featured_games=featured_games, owned=owned)
 
-@app.route("/library")
+
+@app.route("/Action")
 @login_required
-def library():
+def Action():
     user_id = session['user_id']
     user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
     username = user[0]
-    coins = user[1]    
-
-    games_owned = db.execute("SELECT * FROM games JOIN transactions on games.id = transactions.game_id WHERE transactions.user_id = ?", (user_id,)).fetchall()
+    coins = user[1]
     
-    return render_template ("library.html", username=username, coins=coins, games_owned = games_owned) 
+    games = db.execute("SELECT * FROM games WHERE category = 'Action'").fetchall()
 
-@app.route('/Action')
+    return render_template("Action.html", games=games, username=username, coins=coins)
+
+@app.route("/Adventure")
 @login_required
-def categories():
+def Adventure():
     user_id = session['user_id']
-    games = db.exeucte ("SELECT * FROM games WHERE")
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    username = user[0]
+    coins = user[1]
+    
+    games = db.execute("SELECT * FROM games WHERE category = 'Adventure'").fetchall()
 
+    return render_template("Adventure.html", games=games, username=username, coins=coins)
 
-    return render_template("/<categories>.html")
+@app.route("/Fighting")
+@login_required
+def Fighting():
+    user_id = session['user_id']
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    username = user[0]
+    coins = user[1]
+    
+    games = db.execute("SELECT * FROM games WHERE category = 'Fighting'").fetchall()
+
+    return render_template("Fighting.html", games=games, username=username, coins=coins)
+
+@app.route("/Horror")
+@login_required
+def Horror():
+    user_id = session['user_id']
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    username = user[0]
+    coins = user[1]
+    
+    games = db.execute("SELECT * FROM games WHERE category = 'Horror'").fetchall()
+
+    return render_template("Horror.html", games=games, username=username, coins=coins)
+
+@app.route("/Puzzle")
+@login_required
+def Puzzle():
+    user_id = session['user_id']
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    username = user[0]
+    coins = user[1]
+    
+    games = db.execute("SELECT * FROM games WHERE category = 'Puzzle'").fetchall()
+
+    return render_template("Puzzle.html", games=games, username=username, coins=coins)
+
+@app.route("/Sports")
+@login_required
+def Sports():
+    user_id = session['user_id']
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    username = user[0]
+    coins = user[1]
+    
+    games = db.execute("SELECT * FROM games WHERE category = 'Sports'").fetchall()
+
+    return render_template("Sports.html", games=games, username=username, coins=coins)
 
 @app.route('/logout')
 def logout():
@@ -178,6 +295,4 @@ if __name__ == "__main__":
     server.watch('static/')  # Watches the 'static' folder
     server.watch('templates/')  # Watches the 'templates' folder
     server.serve(port=5000, debug=True)
-
-
 

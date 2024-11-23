@@ -1,4 +1,0 @@
-Publisher: Cartoon Network
-Release Date: 2004
-Description: Based on the Samurai Jack series, this game lets players control Jack as he fights enemies and overcomes obstacles.
-Controls: Arrow keys to move, Space to attack.

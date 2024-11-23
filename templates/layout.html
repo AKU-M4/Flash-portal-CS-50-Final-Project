@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/cdc84cb5ad.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='logo1.png') }}" rel="icon" >
     <title>FlashPortal{% block title%}{% endblock %}</title>
@@ -46,7 +48,7 @@
             </div>
             <div class="search">
                 <form action="/search" method="post">
-                    <input autocomplete="off" name="search" type="text" placeholder="Search">
+                    <input autocomplete="on" name="search" type="text" placeholder="Search">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
@@ -70,57 +72,53 @@
             <sidebar id="sidebar" class="sidebar-hidden">
                 <div class="sidebar-links">
                     <div class="first-list">
-                        <ul>
-                            <li>
-                                <a href="/">
-                                    <i class="fa-solid fa-house"></i>
-                                    <span class="link-text">Home</span>
-                                </a>
-                                <a href="/favorite">
-                                    <i class="fa-solid fa-star"></i>
-                                    <span class="link-text">Favorites</span>
-                                </a>
-                                <a href="/library">
-                                    <i class="fa-solid fa-folder-open"></i>
-                                    <span class="link-text">Library</span>
-                                </a>
-                                <a href="/shop">
-                                    <i class="fa-solid fa-shop"></i>
-                                    <span class="link-text">Shop</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <li>
+                            <a href="/">
+                                <i class="fa-solid fa-house"></i>
+                                <span class="link-text">Home</span>
+                            </a>
+                            <a href="/library">
+                                <i class="fa-solid fa-folder-open"></i>
+                                <span class="link-text">Library</span>
+                            </a>
+                            <a href="/shop">
+                                <i class="fa-solid fa-shop"></i>
+                                <span class="link-text">Shop</span>
+                            </a>
+                            <a href="/favorites">
+                                <i class="fa-solid fa-star"></i>
+                                <span class="link-text">Favorites</span>
+                            </a>
+                        </li>
                     </div>
                     <div class="cut"></div>
                     <div class="second-list">
-                        <a href="action.html">
-                            <i class="fa-solid fa-gun"></i>
-                            <span class="link-text">Action</span>
-                        </a>
-                        <a href="arcade.html">
-                            <i class="fa-solid fa-gamepad"></i>
-                            <span class="link-text">Arcade</span>
-                        </a>
-                        <a href="Adventure.html">
-                            <i class="fa-solid fa-person-hiking"></i>
-                            <span class="link-text">Adventure</span>
-                        </a>
-                        <a href="Sports">
-                            <i class="fa-solid fa-basketball"></i>
-                            <span class="link-text">Sports</span>
-                        </a>
-                        <a href="retro.html">
-                            <i class="fa-solid fa-hat-wizard"></i>
-                            <span class="link-text">Rpg</span>
-                        </a>
-                        <a href="puzzle.html">
-                            <i class="fa-solid fa-puzzle-piece"></i>
-                            <span class="link-text">Puzzle</span>
-                        </a>
-                        <a href="horror.html">
-                            <i class="fa-solid fa-ghost"></i>
-                            <span class="link-text">Horror</span>
-                        </a>
+                        <li>
+                            <a href="/Action">
+                                <i class="fa-solid fa-gun"></i>
+                                <span class="link-text">Action</span>
+                            </a>
+                            <a href="/Adventure">
+                                <i class="fa-solid fa-person-hiking"></i>
+                                <span class="link-text">Adventure</span>
+                            </a>
+                            <a href="/Fighting">
+                                <i class="fa-solid fa-gamepad"></i>
+                                <span class="link-text">Fighting</span>
+                            </a>
+                            <a href="/Horror">
+                                <i class="fa-solid fa-ghost"></i>
+                                <span class="link-text">Horror</span>
+                            </a>
+                            <a href="/Puzzle">
+                                <i class="fa-solid fa-puzzle-piece"></i>
+                                <span class="link-text">Puzzle</span>
+                            </a>
+                            <a href="/Sports">
+                                <i class="fa-solid fa-basketball"></i>
+                                <span class="link-text">Sports</span>
+                            </a>
+                        </li>
                     </div>
                     <div class="cut">
                         <span class="link-text"></span>

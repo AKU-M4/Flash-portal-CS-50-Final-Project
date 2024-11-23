@@ -1,4 +1,0 @@
-Publisher: Crazy Monkey Games
-Release Date: 2006
-Description: An action platformer where the player takes on the role of a hero fighting enemies across different levels.
-Controls: Arrow keys to move, A to attack, S for special moves.

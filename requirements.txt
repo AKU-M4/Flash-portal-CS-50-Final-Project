@@ -1,1 +1,8 @@
+Step 1:
 "source venv/bin/activate" use this command to Access the virtual environment.
+
+Step 2:
+type 'flask run'
+
+Step 3:
+access the local server

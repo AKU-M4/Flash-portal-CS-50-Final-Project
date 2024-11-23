@@ -1,49 +1,276 @@
 {% extends "layout.html" %}
 
-{% block title %}
-    HOME
-{% endblock %}
+{% block title %}HOME{% endblock %}
 
 {% block main %}
+<div class="featured-section">    
+    <h3>Featured Games</h3>
+    <div id="featured-carousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            {% for game in featured_games %}
+                <button type="button" 
+                        data-bs-target="#featured-carousel" 
+                        data-bs-slide-to="{{ loop.index0 }}" 
+                        class="{% if loop.first %}active{% endif %}"
+                        aria-current="{% if loop.first %}true{% endif %}"
+                        aria-label="Slide {{ loop.index }}">
+                </button>
+            {% endfor %}
+        </div>
 
-<div class="section-1">
-    <div class="section-style">
-        <h3>Featured games</h3>
-            <form action="/buy" method="Post">
-                <div class="image-container">
-                    <li>
-                        <a href="game.html">
-                        <i class="fa-solid fa-file-invoice fa-xl">
-                    </i>
-                    <div class="image-content">
-                        <h5> name</h5>
-                        <button type="submit">499$</button>
+        <!-- Carousel Items -->
+        <div class="carousel-inner">
+            {% for game in featured_games %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}" data-bs-interval="5000">
+                    <div class="game-slide">
+                        <div class="game-preview-image">
+                            <img src="{{ game['preview'] }}" 
+                                 class="slide-image" 
+                                 alt="{{ game['title'] }}">
+                        </div>
+                        <div class="game-preview-content">
+                            <h4>{{ game['title'] }}</h4>
+                            <p class="price">{{ game['price'] }} FC</p>
+                            <a href="{{ url_for('game', title=game['title']) }}" 
+                               class="preview-button">
+                                Buy now <i class="fa-solid fa-shop"></i>
+                            </a>
+                        </div>
                     </div>
-                        </a>
-                    </li>
                 </div>
-            </form>
+            {% endfor %}
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#featured-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featured-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </div>
-<div class="section-2">
-    <div class="section-style">
-        <h3>Recently played</h3>
-    </div>
-</div> 
-<div id="container"></div>
-<div class="game">
 
-    <script>
-        window.RufflePlayer = window.RufflePlayer || {};
-        
-        window.addEventListener("DOMContentLoaded", () => {
-            let ruffle = window.RufflePlayer.newest();
-            let player = ruffle.createPlayer();
-        let container = document.getElementById("container");
-        container.appendChild(player);
-        player.load("{{ url_for('static', filename='games/boxhead.swf') }}");
+<!-- Custom CSS -->
+<style>
+    .featured-section {
+        padding: 2rem;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .featured-section h3 {
+        color: var(--txt);
+        padding: 20px;
+    }
+
+    #featured-carousel {
+        background-color: var(--second);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--glow);
+        height: 500px;
+        position: relative;
+        margin-bottom: 3rem; /* Added space for indicators */
+    }
+
+    .game-slide {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 2rem;
+        gap: 2rem;
+        background: var(--second);
+        height: 500px;
+    }
+
+    .game-preview-image {
+        flex: 1;
+        max-width: 60%;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slide-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        object-fit: cover;
+    }
+
+    .slide-image:hover {
+        transform: scale(1.02);
+    }
+
+    .game-preview-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        color: var(--txt);
+    }
+
+    .game-preview-content h4 {
+        font-size: 2rem;
+        font-weight: 600;
+        text-align: center;
+        margin: 0;
+    }
+
+    .game-preview-content .price {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: var(--PRIMARY);
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: rgba(142, 5, 194, 0.1);
+        margin: 0;
+    }
+
+    .preview-button {
+        text-decoration: none;
+        color: var(--txt);
+        background-color: var(--PRIMARY);
+        padding: 12px 24px;
+        border-radius: 40px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .preview-button:hover {
+        box-shadow: var(--hover-glow);
+        transform: translateY(-2px);
+        color: var(--txt);
+    }
+
+    /* Updated Carousel Controls */
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: var(--PRIMARY);
+        border-radius: 50%;
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        margin: 0 1rem;
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        opacity: 1;
+        background-color: var(--PRIMARY);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 20px;
+        height: 20px;
+        background-size: 100%;
+        filter: brightness(0) invert(1);
+    }
+
+    /* Updated Carousel Indicators */
+    .carousel-indicators {
+        bottom: -2.5rem;
+        margin-bottom: 0;
+    }
+
+    .carousel-indicators button {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin: 0 4px;
+        border: none;
+        background-color: var(--SECONDARY);
+        opacity: 0.5;
+        transition: all 0.3s ease;
+        padding: 0;
+    }
+
+    .carousel-indicators button.active {
+        opacity: 1;
+        background-color: var(--PRIMARY);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        #featured-carousel {
+            height: 500px;
+        }
+
+        .game-slide {
+            height: 500px;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .game-preview-image {
+            max-width: 100%;
+            height: 300px;
+        }
+
+        .game-preview-content h4 {
+            font-size: 1.5rem;
+        }
+
+        .game-preview-content .price {
+            font-size: 1rem;
+        }
+
+        /* Adjust controls for mobile */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 32px;
+            height: 32px;
+            margin: 0 0.5rem;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+</style>
+
+<!-- Initialize Carousel -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var carousel = new bootstrap.Carousel(document.getElementById('featured-carousel'), {
+            interval: 5000,
+            touch: true,
+            ride: 'carousel',
+            wrap: true
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                carousel.prev();
+            } else if (event.key === 'ArrowRight') {
+                carousel.next();
+            }
+        });
+
+        // Pause on hover
+        document.getElementById('featured-carousel').addEventListener('mouseenter', function() {
+            carousel.pause();
+        });
+
+        document.getElementById('featured-carousel').addEventListener('mouseleave', function() {
+            carousel.cycle();
+        });
     });
-    </script>   
-</div>
-
+</script>
 {% endblock %}
