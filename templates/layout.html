@@ -19,7 +19,7 @@
             <span></span>
         </div>
             <div class="logo">
-                <svg  onclick="location.href='/'" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1091.79 612.32" height="70px" width="70px">
+                <svg  onclick="location.href='/'" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1091.79 612.32" height="80px" width="80px">
                     <defs>
                     <style>
                       .cls-1 {
@@ -47,8 +47,8 @@
                 </svg>
             </div>
             <div class="search">
-                <form action="/search" method="post">
-                    <input autocomplete="on" name="search" type="text" placeholder="Search">
+                <form action="{{ url_for('search') }}" method="post">
+                    <input autocomplete="on" name="search" type="text" placeholder="Search your game...">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
@@ -70,6 +70,12 @@
         </nav>
         <div class="content-wrapper">
             <sidebar id="sidebar" class="sidebar-hidden">
+                <div class="mobile-search">
+                    <form action="{{ url_for('search') }}" method="post">
+                        <input autocomplete="on" name="search" type="text" placeholder="Search">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
                 <div class="sidebar-links">
                     <div class="first-list">
                         <li>
@@ -81,13 +87,13 @@
                                 <i class="fa-solid fa-folder-open"></i>
                                 <span class="link-text">Library</span>
                             </a>
-                            <a href="/shop">
-                                <i class="fa-solid fa-shop"></i>
-                                <span class="link-text">Shop</span>
-                            </a>
                             <a href="/favorites">
                                 <i class="fa-solid fa-star"></i>
                                 <span class="link-text">Favorites</span>
+                            </a>
+                            <a href="/shop">
+                                <i class="fa-solid fa-shop"></i>
+                                <span class="link-text">Shop</span>
                             </a>
                         </li>
                     </div>
@@ -142,12 +148,27 @@
         </div>
     
         <script>
-            const hamburgerMenu = document.getElementById('hamburger-menu');
-            const sidebar = document.getElementById('sidebar');
-    
-            hamburgerMenu.addEventListener('click', () => {
-                sidebar.classList.toggle('sidebar-hidden');
-                hamburgerMenu.classList.toggle('open');
+            document.addEventListener('DOMContentLoaded', function() {
+                const hamburger = document.querySelector('.hamburger-icon');
+                const sidebar = document.querySelector('sidebar');
+
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    sidebar.classList.toggle('sidebar-active');
+                });
+
+                // Close sidebar when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
+                        sidebar.classList.remove('sidebar-active');
+                        hamburger.classList.remove('active');
+                    }
+                });
+
+                // Prevent sidebar from closing when clicking inside it
+                sidebar.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
             });
         </script>
     </body>

@@ -115,11 +115,20 @@ def home():
         categories=categories,
     )
 
-@app.route("/search")
-@login_required
+@app.route("/search", methods=['GET', 'POST'])
 def search():
+    user_id = session["user_id"]
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+    if user:
+        username = user[0]
+        coins = user[1]
 
-    return render_template(search.html)
+    if (request.method == 'POST'):
+        check_game = request.form.get("search")
+
+        searched_games = db.execute("SELECT * FROM games WHERE title LIKE ? ", (f'{check_game}%',)).fetchall()
+
+    return render_template("search.html", searched_games=searched_games, check_game=check_game, username=username, coins=coins)
 
 @app.route("/favorites")
 @login_required

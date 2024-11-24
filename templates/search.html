@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %} {{ check_game }} {% endblock %}
+
+{% block main %}
+    <h3>Search:</h3>
+    <div class="shop-content">
+        {% if searched_games is none or searched_games|length == 0 %}
+            <p>Couldn't find any game with this title {{ check_game }}. Make sure to check our <a href="/shop">Shop.</a></p>
+        {% else %}
+            {% for game in searched_games %}
+                <div class="game-container">
+                    <!-- Correctly linking to the game's page -->
+                    <a href="{{ url_for ('game', title = game['title']) }} ">
+                        <!-- Correctly referencing the game's thumbnail -->
+                        <img src="{{ game['thumbnail'] }}" alt="{{ game['title'] }}">
+                        <span>{{ game['title'] }}</span>
+                    </a>
+                    <p>{{ game['price'] }} FC</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -5,6 +5,14 @@
 {% endblock %}
 
 {% block main %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="flash-message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
     {% if not owned %}
         <div class="game-preview">
             <h4>Game Preview:</h4>
@@ -17,85 +25,23 @@
     {% else %}
         <div class="game-content">
             <h3>{{ game['title'] }}</h3>
-            <div id="container">
-                <div class="ruffle-controls">
-                    <div class="volume-control">
-                        <button class="control-button volume-toggle">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                        <input type="range" class="volume-slider" min="0" max="100" value="100">
-                    </div>
-                    <button class="control-button fullscreen-toggle">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
+            <div id="container"></div>
             <script>
                 window.addEventListener("load", (event) => {
-                    const ruffle = window.RufflePlayer.newest();
-                    const player = ruffle.createPlayer();
-                    const container = document.getElementById("container");
-                    const volumeSlider = document.querySelector('.volume-slider');
-                    const volumeToggle = document.querySelector('.volume-toggle');
-                    const fullscreenToggle = document.querySelector('.fullscreen-toggle');
-                    
-                    container.insertBefore(player, container.firstChild);
-                    
-                    player.style.width = "100%";
-                    player.style.height = "100%";
-                    
-                    player.load({
-                        url: "{{ url_for('static', filename=game['url'].replace('static/', '')) }}", 
-                        backgroundColor: "#111214",
-                    });
+                const ruffle = window.RufflePlayer.newest();
+                const player = ruffle.createPlayer();
+                const container = document.getElementById("container");
 
-                    // Volume control
-                    let lastVolume = 1;
-                    volumeSlider.addEventListener('input', (e) => {
-                        const volume = e.target.value / 100;
-                        player.volume = volume;
-                        updateVolumeIcon(volume);
-                    });
+                container.appendChild(player);
 
-                    volumeToggle.addEventListener('click', () => {
-                        if (player.volume > 0) {
-                            lastVolume = player.volume;
-                            player.volume = 0;
-                            volumeSlider.value = 0;
-                        } else {
-                            player.volume = lastVolume;
-                            volumeSlider.value = lastVolume * 100;
-                        }
-                        updateVolumeIcon(player.volume);
-                    });
+                player.style.width = "100%";
+                player.style.height = "100%";
 
-                    function updateVolumeIcon(volume) {
-                        const icon = volumeToggle.querySelector('i');
-                        icon.className = volume === 0 
-                            ? 'fas fa-volume-mute'
-                            : volume < 0.5 
-                                ? 'fas fa-volume-down'
-                                : 'fas fa-volume-up';
-                    }
-
-                    // Fullscreen control
-                    fullscreenToggle.addEventListener('click', () => {
-                        if (!document.fullscreenElement) {
-                            container.requestFullscreen().catch(err => {
-                                console.log('Error attempting to enable fullscreen:', err);
-                            });
-                        } else {
-                            document.exitFullscreen();
-                        }
-                    });
-
-                    document.addEventListener('fullscreenchange', () => {
-                        const icon = fullscreenToggle.querySelector('i');
-                        icon.className = document.fullscreenElement
-                            ? 'fas fa-compress'
-                            : 'fas fa-expand';
-                    });
+                player.load({
+                url: "{{ url_for('static', filename=game['url'].replace('static/', '')) }}", 
+                backgroundColor: "#111214",
                 });
+            });
             </script>
             <form action="{{ url_for('game', title=game['title']) }}" method="post">
                 <button type="submit" name="favorite" value="true">
@@ -301,108 +247,6 @@
     opacity: 1;
 }
 
-/* Volume Control Styles */
-.volume-control {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 0 1 auto;
-    min-width: 120px;
-}
-
-.volume-slider {
-    flex: 1;
-    height: 4px;
-    -webkit-appearance: none;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-    width: 80px;
-}
-
-.volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    background: var(--PRIMARY);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-.volume-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-    background-color: var(--PRIMARY);
-}
-
-/* Control Buttons */
-.control-button {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    padding: 8px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
-.control-button:hover {
-    color: var(--PRIMARY);
-    transform: scale(1.2);
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.control-button i {
-    font-size: 1.2rem;
-}
-
-/* Ruffle Play Button Override */
-.ruffle-player .play-button {
-    background-color: var(--PRIMARY) !important;
-    border: none !important;
-    border-radius: 50% !important;
-    width: 80px !important;
-    height: 80px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: transform 0.3s ease, background-color 0.3s ease !important;
-    box-shadow: 0 0 20px rgba(142, 5, 194, 0.3) !important;
-}
-
-.ruffle-player .play-button:hover {
-    transform: scale(1.1) !important;
-    background-color: var(--PRIMARY) !important;
-    box-shadow: 0 0 30px rgba(142, 5, 194, 0.5) !important;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .ruffle-controls {
-        bottom: 10px;
-        padding: 8px 16px;
-        gap: 12px;
-    }
-
-    .volume-control {
-        min-width: 100px;
-    }
-
-    .volume-slider {
-        width: 60px;
-    }
-
-    .control-button i {
-        font-size: 1rem;
-    }
-
-    .ruffle-player .play-button {
-        width: 60px !important;
-        height: 60px !important;
-    }
-}
 .game-content button {
     display: flex;
     align-items: center;
@@ -498,8 +342,8 @@
     .featured-games .game-container img {
         width: 180px;
         height: 180px;
-        object-fit: cover; /* This ensures the image covers the area properly */
-        object-position: center; /* This centers the image within its container */
+        object-fit: cover;
+        object-position: center;
         margin-bottom: 1rem;
     }
 
@@ -528,8 +372,9 @@
 
 .featured-games .game-container img {
     border-radius: 12px;
-    object-fit: cover; /* Added here for consistency across all screen sizes */
-    object-position: center; /* Added here for consistency across all screen sizes */
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
 }
