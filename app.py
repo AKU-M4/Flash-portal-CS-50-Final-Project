@@ -289,6 +289,27 @@ def Sports():
 
     return render_template("Sports.html", games=games, username=username, coins=coins)
 
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    user_id = session["user_id"]
+
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+
+    if user:
+        username = user[0]
+        coins = user[1]
+
+    if (request.method == 'POST'):
+        name = request.form.get("name")
+        email = request.form.get("email")
+        message = request.form.get("message")
+
+        db.execute("INSERT INTO contacts (name, email, message) VALUES(?, ?, ?)", (name, email, message))
+        db.commit()
+        
+        return redirect("/")
+    return render_template("contact.html", username=username, coins=coins)
+
 @app.route('/logout')
 def logout():
 
@@ -304,4 +325,3 @@ if __name__ == "__main__":
     server.watch('static/')  # Watches the 'static' folder
     server.watch('templates/')  # Watches the 'templates' folder
     server.serve(port=5000, debug=True)
-
