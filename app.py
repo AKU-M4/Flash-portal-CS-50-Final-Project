@@ -95,25 +95,17 @@ def home():
         coins = None
 
     # Get featured games with a random selection
-    featured_games = db.execute("""
-        SELECT * FROM games 
-        ORDER BY RANDOM() 
-        LIMIT 6
-    """).fetchall()
+    featured_games = db.execute("SELECT * FROM games ORDER BY RANDOM() LIMIT 6").fetchall()
+    # Get all unique categories
+    categories = [row[0] for row in db.execute("SELECT DISTINCT category FROM games").fetchall()]
 
-    # Get categories without duplicates
-    categories = db.execute("""
-        SELECT DISTINCT category 
-        FROM games
-    """).fetchall()
+    # Build a dictionary of category -> games
+    category_games = {}
+    for category in categories:
+        games = db.execute("SELECT * FROM games WHERE category = ?", (category,)).fetchall()
+        category_games[category] = games
 
-    return render_template(
-        "home.html", 
-        username=username, 
-        coins=coins, 
-        featured_games=featured_games, 
-        categories=categories,
-    )
+    return render_template("home.html", username=username, coins=coins, featured_games=featured_games, categories=categories, game=game ,category_games=category_games)
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():

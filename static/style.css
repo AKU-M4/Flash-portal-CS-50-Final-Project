@@ -42,7 +42,8 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-    background: var(--PRIMARY);
+    background: rgba(102, 5, 140, 0.455);
+    border-radius: 50px;
 }
 
 /* Enhanced Navigation Bar */
@@ -266,14 +267,16 @@ sidebar {
     position: fixed;
     top: 9vh;
     width: 60px;
-    height: 100vh;
+    height: calc(100vh - 9vh);
     background-color: var(--second);
     color: #efefef;
     transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
     overflow-x: hidden;
 }
-
+sidebar::-webkit-scrollbar{
+    display:none;
+}
 sidebar:hover {
     width: 240px;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
@@ -394,6 +397,41 @@ sidebar:hover .footer {
 }
 
 /* Responsive Design */
+@media (max-width: 1050px){
+    .logo{
+        margin-left:3rem;
+    }
+    .nav-bar{
+        padding:0px 15px;
+    }
+    .hamburger-icon{
+        display: block;
+    }
+    sidebar {
+        height: calc(100vh - 9vh);
+        transform: translateX(-100%);
+        width: 280px;
+    }
+
+    .sidebar-links .link-text,
+    .footer {
+        opacity: 1;
+    }
+
+    sidebar.sidebar-active {
+        transform: translateX(0);
+        width: 280px;
+    }
+
+    .sidebar-links a {
+        padding: 0.9rem 1.2rem;
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+    }
+
+}
 @media (max-width: 900px) {
     .logo {
         margin-left: 4rem;
@@ -480,7 +518,7 @@ sidebar:hover .footer {
     }
 
     .user-info {
-        gap: 10px;
+        gap: 5px;
     }
 
     .nav-coins {
@@ -489,6 +527,16 @@ sidebar:hover .footer {
 }
 
 @media (max-width: 480px) {
+    .nav-bar{
+        padding: 0px 10px;
+    }
+    .logo svg{
+        height: 65px;
+        width: 65px;
+    }
+    .logo{
+        margin-left: 0;
+    }
     .info a {
         padding: 6px 12px;
         font-size: 12px;
@@ -497,18 +545,26 @@ sidebar:hover .footer {
     .user-info img {
         width: 30px;
         height: 30px;
+    }
+    sidebar{
+        height: calc(100vh - 9vh);
     }
 }
-
-@media (max-width: 480px) {
-    .info a {
-        padding: 6px 12px;
-        font-size: 12px;
+@media (max-width:400px)
+{
+    .logo{
+        margin-left: 3rem;
     }
+    .logo svg{
 
-    .user-info img {
-        width: 30px;
-        height: 30px;
+        width: 60px;
+        height: 60px;
+    }
+    .info a{
+        padding: 4px 5px;
+    }
+    .user-info{
+        gap: 2px;
     }
 }
 

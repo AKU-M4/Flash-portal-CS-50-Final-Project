@@ -53,6 +53,33 @@
         </button>
     </div>
 </div>
+<div class="categories-section">
+    <h3>Categories</h3>
+    <div class="category-container">
+        {% for category, games in category_games.items() %}
+            <div class="category-links">
+                <h4>{{ category }}</h4>
+                <a href="/{{ category }}">View more</a>
+            </div>
+            <div class="row">
+            {% for game in games %}
+                <div class="col-12 col-md-4 col-lg-3 game-container">
+                    <a href="{{ url_for('game', title=game['title']) }}">
+                    <img src="{{ game['thumbnail'] }}" alt="{{ game['title'] }}" loading="lazy">
+                    <span>{{ game['title'] }}</span>
+                    </a>
+                <p>{{ game['price'] }} FC</p>
+                </div>
+            {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="dev-suggested-section">
+    <div class="dev-suggested-container">
+
+    </div>
+</div>
 
 <!-- Custom CSS -->
 <style>
@@ -242,6 +269,67 @@
             height: 16px;
         }
     }
+    .categories-section h3 {
+    padding: 20px;
+    color: var(--txt);
+}
+
+.category-links {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+}
+.category-links h4{
+    color: var(--txt);
+    font-size: 1.2rem;
+}
+.category-links a{
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--PRIMARY);
+}
+.category-links a:hover{
+    margin-left: 10px;
+    transition: 0.3s ease-in-out;
+
+}
+
+.category-container .row {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 15px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.category-container .game-container {
+    flex: 0 0 auto;
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+.category-container .game-container img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Scrollbar styling for horizontal scroll */
+.category-container .row::-webkit-scrollbar {
+    height: 8px;
+}
+
+.category-container .row::-webkit-scrollbar-track {
+    background: var(--base);
+}
+
+.category-container .row::-webkit-scrollbar-thumb {
+    padding-left: 30px;
+    background: var(--PRIMARY);
+    border-radius: 10px;
+}
 </style>
 
 <!-- Initialize Carousel -->
