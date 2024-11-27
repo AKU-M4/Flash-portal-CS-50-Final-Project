@@ -94,12 +94,12 @@ def home():
         username = None
         coins = None
 
-    # Get featured games with a random selection
+    # Getting featured games with a random selection
     featured_games = db.execute("SELECT * FROM games ORDER BY RANDOM() LIMIT 6").fetchall()
-    # Get all unique categories
+    # Getting all unique categories
     categories = [row[0] for row in db.execute("SELECT DISTINCT category FROM games").fetchall()]
 
-    # Build a dictionary of category -> games
+    # Building a dictionary of category -> games
     category_games = {}
     for category in categories:
         games = db.execute("SELECT * FROM games WHERE category = ?", (category,)).fetchall()
@@ -185,18 +185,26 @@ def game(title):
     is_favorite = db.execute("SELECT 1 FROM favorites WHERE user_id = ? AND game_id = ?", (user_id, game_id)).fetchone() is not None
 
     if request.method == "POST":
-        #Add to favorite Section
+        # Handle favorite/unfavorite
         if "favorite" in request.form:
-            if not is_favorite:
+            favorite_action = request.form["favorite"]
+            if favorite_action == "add" and not is_favorite:
                 db.execute("INSERT INTO favorites (user_id, game_id) VALUES (?, ?)", (user_id, game_id))
-                db.commit()
-        # Check if user has enough coins
-        if coins < game_price:
-            flash("Insufficient Flash coins")
+                flash("Added to favorites!")
+                is_favorite = True
+            elif favorite_action == "remove" and is_favorite:
+                db.execute("DELETE FROM favorites WHERE user_id = ? AND game_id = ?", (user_id, game_id))
+                flash("Removed from favorites!")
+                is_favorite = False
+            db.commit()
             return redirect(url_for("game", title=title))
 
-        # If not owned, purchase the game
+        # Handle game purchase
         if not owned:
+            if coins < game_price:
+                flash("Insufficient Flash coins")
+                return redirect(url_for("game", title=title))
+
             new_balance = coins - game_price
             db.execute("INSERT INTO transactions (user_id, game_id) VALUES (?, ?)", (user_id, game_id))
             db.execute("UPDATE users SET coins = ?, game_id = ? WHERE id = ?", (new_balance, game_id, user_id))
@@ -206,7 +214,7 @@ def game(title):
             flash("Thanks for your purchase")
             db.commit()
 
-    return render_template("game.html", game=game, username=username, coins=coins, featured_games=featured_games, owned=owned)
+    return render_template("game.html", game=game, username=username, coins=coins, featured_games=featured_games, owned=owned, is_favorite=is_favorite)
 
 
 @app.route("/Action")
