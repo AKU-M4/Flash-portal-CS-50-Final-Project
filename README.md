@@ -12,10 +12,13 @@
 
 ## **🌟 About the Project**  
 
-Flash Portal is a web application that revives the charm of classic Flash games. Users can:  
-- Play curated games directly on the platform.  
-- Track their progress and earn points.  
-- Unlock new games and features.  
+Flash Portal is a full-stack web application designed to revive and preserve the joy of classic Flash games, ensuring these nostalgic treasures remain accessible in the modern era.
+
+With the decline of Adobe Flash and its compatibility issues, Flash Portal aims to bring back the experience of playing iconic Flash games through modern technologies. Users can:
+
+- Access a curated library of classic Flash games, playable directly on the platform.
+- Track progress and achievements, making the experience more rewarding.
+- Unlock new games using points earned by playing and completing challenges.
 
 > ⚠️ *This project is private and shared only for CS50 evaluation purposes.*  
 
@@ -67,7 +70,55 @@ Here’s a quick preview of how the Flash Portal works! Watch the navigation thr
 
 ---
 
+## **⚖️ Design Choices**
 
+- **Game Accessibility**
+
+    The decision to use the Ruffle Flash emulator ensures the longevity of Flash games while making them compatible with modern browsers.
+
+- **Database Selection**
+  
+    SQLite was chosen for its simplicity and lightweight nature, making it suitable for this project’s scope.
+
+- **Frontend and Backend**
+  
+    Using Flask as the backend framework provided flexibility, while Bootstrap ensured a responsive and user-friendly interface.
+
+- **User Experience**
+  
+    A focus was placed on intuitive navigation, with clear progress tracking and unlockable content to keep users engaged.
+
+---
+    
+## **📂 File Structure** 
+```bash
+/flash_session    # Stores Flask session data for user authentication and state management
+/static
+    /games       # Game assets and Flash files (.swf)
+    /js          # Ruffle framework implementation and custom JavaScript
+        ruffle.js      # Ruffle Flash emulator
+        game-loader.js # Custom game loading logic
+    /css
+        style.css     # Main stylesheet for website theming
+    /images      # Website images and assets
+/templates
+    layout.html      # Base template with common elements (header, footer)
+    auth.layout.html # Authentication-specific template (login, register)
+    index.html      # Homepage template
+    games.html      # Games library view
+    profile.html    # User profile page
+    ...
+/venv            # Python virtual environment (contains project dependencies)
+app.py           # Main Flask application (routes, configuration)
+helpers.py       # Utility functions and helper methods
+database.db      # SQLite database for user data and game progress
+deploy.yml       # Environment variables and deployment configuration
+requirements.txt # List of Python package dependencies
+README.md        # Project documentation
+    
+```
+
+---
 
 ## 📖 **Step-by-Step: How to Run the Web App**
 
@@ -96,36 +147,6 @@ Here’s a quick preview of how the Flash Portal works! Watch the navigation thr
 
 5. **Access the web app:**
     Open your browser and go to http://127.0.0.1:5000
-
----
-
-## **📂 File Structure** 
-```bash
-/flash_session    # Stores Flask session data for user authentication and state management
-/static
-    /games       # Game assets and Flash files (.swf)
-    /js          # Ruffle framework implementation and custom JavaScript
-        ruffle.js      # Ruffle Flash emulator
-        game-loader.js # Custom game loading logic
-    /css
-        style.css     # Main stylesheet for website theming
-    /images      # Website images and assets
-/templates
-    layout.html      # Base template with common elements (header, footer)
-    auth.layout.html # Authentication-specific template (login, register)
-    index.html      # Homepage template
-    games.html      # Games library view
-    profile.html    # User profile page
-    ...
-/venv            # Python virtual environment (contains project dependencies)
-app.py           # Main Flask application (routes, configuration)
-helpers.py       # Utility functions and helper methods
-database.db      # SQLite database for user data and game progress
-deploy.yml       # Environment variables and deployment configuration
-requirements.txt # List of Python package dependencies
-README.md        # Project documentation
-    
-```
 
 ---
 
