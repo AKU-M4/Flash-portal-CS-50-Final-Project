@@ -137,7 +137,7 @@ def favorites():
         username = user[0]
         coins = user[1]
 
-    favorite_games = db.execute("SELECT * FROM games JOIN favorites on games.id = favorites.game_id WHERE favorites.user_id = ?", (user_id,)).fetchall()
+    favorite_games = db.execute("SELECT * FROM games JOIN favorites on games.id = favorites.game_id WHERE favorites.user_id = ? ", (user_id,)).fetchall()
 
     return render_template("favorites.html", favorite_games=favorite_games, username=username, coins=coins)
 

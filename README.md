@@ -36,7 +36,7 @@ Here’s a quick preview of how the Flash Portal works! Watch the navigation thr
 *(this gif is a quick preview of navigating the web app.)*
 
 ## **🎥 Video Demo**  
-📹 [Watch the demo on YouTube!](#) *(Replace this link with your demo.)*
+📹 [Watch the demo on YouTube!](#) *(https://youtu.be/TlkFrrDgGGI)*
 
 
 ---

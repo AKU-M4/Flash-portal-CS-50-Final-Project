@@ -12,15 +12,15 @@
     <form action="{{ url_for('register') }}" method="post" class="auth-form">
         <div class="form-group">
             <i class='bx bx-user'></i>
-            <input type="text" name="username" placeholder="Username" required>
+            <input autocomplete="off" type="text" name="username" placeholder="Username" required>
         </div>
         <div class="form-group">
             <i class='bx bx-envelope'></i>
-            <input type="email" name="email" placeholder="Email" required>
+            <input autocomplete="off" type="email" name="email" placeholder="Email" required>
         </div>
         <div class="form-group">
             <i class='bx bx-lock-alt'></i>
-            <input type="password" name="password" placeholder="Password" required>
+            <input autocomplete="off" type="password" name="password" placeholder="Password" required>
         </div>
         <button type="submit" class="auth-button">Register</button>
         <p class="switch-auth">
