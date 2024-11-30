@@ -166,7 +166,7 @@ def library():
     
     return render_template ("library.html", username=username, coins=coins, games_owned = games_owned) 
 
-@app.route("/game/<title>", methods=["GET", "POST"])
+@app.route("/<title>", methods=["GET", "POST"])
 @login_required
 def game(title):
     user_id = session['user_id']
