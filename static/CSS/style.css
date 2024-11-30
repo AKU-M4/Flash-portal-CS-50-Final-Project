@@ -64,8 +64,10 @@ body::-webkit-scrollbar-thumb {
 
 .logo {
     cursor: pointer;
-    margin-right: 20px;
     transition: transform 0.3s ease;
+}
+.logo svg{
+    margin-left: 10px;
 }
 .logo:hover {
     transform: scale(1.05);
@@ -73,9 +75,11 @@ body::-webkit-scrollbar-thumb {
 
 /* Enhanced Search Section */
 .search {
-    margin-left: 50px;
     position: relative;
     flex: 0 1 500px;
+    justify-content: center;
+    left: 90px;
+    margin-right: 50px;
 }
 
 .search form {
@@ -85,7 +89,6 @@ body::-webkit-scrollbar-thumb {
 
 .search input {
     width: 100%;
-    margin-left: 50px;
     padding: 12px 20px;
     border: 2px solid transparent;
     border-radius: 30px;
@@ -282,7 +285,8 @@ sidebar:hover {
 }
 
 .sidebar-links {
-    padding: 1rem 0.5rem;
+    padding: 1rem 0.2rem;
+    padding-left: 5px;
 }
 
 .sidebar-links .link-text {
@@ -397,8 +401,12 @@ sidebar:hover .footer {
 
 /* Responsive Design */
 @media (max-width: 1050px){
+    
     .logo{
         margin-left:3rem;
+    }
+    .search{
+        left: 70px;
     }
     .nav-bar{
         padding:0px 15px;
@@ -614,7 +622,6 @@ main h3{
     box-shadow: var(--glow);
     height: 500px;
     position: relative;
-     /* Added space for indicators */
 }
 
 .game-slide {
@@ -784,65 +791,79 @@ main h3{
     }
 }
 .categories-section h3 {
-padding: 20px;
-color: var(--txt);
+    padding: 20px;
+    color: var(--txt);
 }
 
 .category-links {
-display: flex;
-width: 100%;
-gap: 10px;
-margin-bottom: 15px;
-padding: 10px 20px;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px 20px;
 }
 .category-links h4{
-color: var(--txt);
-font-size: 1.2rem;
+    color: var(--txt);
+    font-size: 1.2rem;
 }
 .category-links a{
-font-weight: 600;
-text-decoration: none;
-color: var(--PRIMARY);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--PRIMARY);
 }
 .category-links a:hover{
-margin-left: 10px;
-transition: 0.3s ease-in-out;
+    margin-left: 10px;
+    transition: 0.3s ease-in-out;
 
 }
 
 .category-container .row {
-display: flex;
-flex-wrap: nowrap;
-overflow-x: auto;
-gap: 15px;
-width: 100%;
-padding: 0 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 15px;
+    width: 100%;
+    padding: 0 20px;
 }
 
 .category-container .game-container {
-flex: 0 0 auto;
-width: 250px;
-margin-bottom: 20px;
+    flex: 0 0 auto;
+    width: 250px;
+    margin-bottom: 20px;
+    object-fit: cover;
 }
 
 .category-container .game-container img {
-height: 200px;
-object-fit: cover;
+    height: 200px;
 }
 
 /* Scrollbar styling for horizontal scroll */
 .category-container .row::-webkit-scrollbar {
-height: 8px;
+    height: 8px;
 }
 
 .category-container .row::-webkit-scrollbar-track {
-background: var(--base);
+    background: var(--base);
+    margin-left: 20px;
 }
 
 .category-container .row::-webkit-scrollbar-thumb {
-padding-left: 30px;
-background: var(--PRIMARY);
-border-radius: 10px;
+    background: rgba(102, 5, 140, 0.455);
+    border-radius: 10px;
+}
+
+@media (max-width:1100px){
+    .category-container .row::-webkit-scrollbar {
+        display: none;
+        }
+        
+        .category-container .row::-webkit-scrollbar-track {
+        display: none;
+        }
+        
+        .category-container .row::-webkit-scrollbar-thumb {
+            display: none;
+        }
 }
 
 /* Shop content grid layout */
@@ -1251,7 +1272,6 @@ border-radius: 10px;
     .featured-games .game-container img {
         width: 180px;
         height: 180px;
-        object-fit: cover;
         object-position: center;
         margin-bottom: 1rem;
     }
@@ -1272,6 +1292,7 @@ border-radius: 10px;
     align-items: center;
     gap: 1.5rem;
     border: 1px solid rgba(142, 5, 194, 0.1);
+    object-fit: cover;
 }
 
 .featured-games .game-container:hover {
@@ -1283,7 +1304,6 @@ border-radius: 10px;
     border-radius: 12px;
     height: 200px;
     width: 200px;
-    object-fit: cover;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
 }
