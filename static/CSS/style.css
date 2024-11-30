@@ -19,6 +19,8 @@
                   0px 0px 25px var(--PRIMARY);
 }
 
+/* LAYOUT */
+
 * {
     padding: 0;
     margin: 0;
@@ -402,9 +404,6 @@ sidebar:hover .footer {
 /* Responsive Design */
 @media (max-width: 1050px){
     
-    .logo{
-        margin-left:3rem;
-    }
     .search{
         left: 70px;
     }
@@ -440,10 +439,9 @@ sidebar:hover .footer {
 
 }
 @media (max-width: 900px) {
-    .logo {
-        margin-left: 4rem;
+    .info a{
+        padding: 20px 30px;
     }
-    
     .mobile-search {
         padding: 1rem;
         margin-bottom: 15px;
@@ -545,7 +543,7 @@ sidebar:hover .footer {
         margin-left: 0;
     }
     .info a {
-        padding: 6px 12px;
+        padding: 10px 15px;
         font-size: 12px;
     }
 
@@ -559,23 +557,24 @@ sidebar:hover .footer {
 }
 @media (max-width:400px)
 {
-    .logo{
-        margin-left: 3rem;
-    }
     .logo svg{
 
         width: 60px;
         height: 60px;
     }
+    .info{
+        gap: 5px;
+
+    }
     .info a{
-        padding: 4px 5px;
+        padding: 6px 10px;
     }
     .user-info{
         gap: 2px;
     }
 }
 
-/* MAIN CONTENT */
+/* MAIN STYLING */
 
 main {
     margin-top: 4vh;
@@ -866,7 +865,9 @@ main h3{
         }
 }
 
-/* Shop content grid layout */
+
+/* SHOP PAGE GRID LAYOUT */
+
 .shop-content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1004,6 +1005,7 @@ main h3{
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
+
 /* Game Preview Styling */
 .game-preview {
     background: linear-gradient(145deg, var(--second), rgba(17, 18, 20, 0.95));
@@ -1353,7 +1355,9 @@ main h3{
         margin: 1rem 0;
     }
 }
-/* AUTHENTICATION PART */
+
+/* AUTHENTICATION PAGES */
+
 .navbar{
     position: fixed;
     top: 10px;
@@ -1527,6 +1531,7 @@ main h3{
 }
 
 /* CONTACT PAGE */
+
 .contact-container {
     width: 100%;
     background: var(--second);
