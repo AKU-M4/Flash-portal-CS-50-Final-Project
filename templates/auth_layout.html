@@ -5,15 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} - GameStore</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="{{ url_for('static', filename='logo1.png') }}" rel="icon" >
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+    <link href="{{ url_for('static', filename='images/logo1.png') }}" rel="icon" >
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
   <nav class="navbar">
-    <div class = "auth_logo">
+    <div class = "logo">
       <svg  onclick="location.href='/'" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1091.79 612.32" height="100px" width="100px">
         <defs>
                     <style>

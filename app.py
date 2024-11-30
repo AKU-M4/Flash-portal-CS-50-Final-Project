@@ -12,6 +12,7 @@ app.secret_key = os.getenv("SECRET_KEY", "fallback_key_for_dev_only")
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
 # Adding game_data to insert in our database
 game_path = 'static/games'
 db = get_db_connection()
@@ -25,11 +26,13 @@ def login():
 
         if not username or not password:
             flash("Make sure to fill out the the fields")
+            return redirect("/login")
         
         rows = db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
 
         if rows is None or not check_password_hash(rows["hash"], password):
             flash ("Invalid username and/or password")
+            return redirect("/login")
 
         session["user_id"] = rows['id']
         
@@ -290,6 +293,7 @@ def Sports():
     return render_template("Sports.html", games=games, username=username, coins=coins)
 
 @app.route('/contact', methods=['GET', 'POST'])
+@login_required
 def contact():
     user_id = session["user_id"]
 
@@ -310,6 +314,32 @@ def contact():
         return redirect("/")
     return render_template("contact.html", username=username, coins=coins)
 
+
+@app.route("/about")
+@login_required
+def about():
+    user_id = session["user_id"]
+
+    user = db.execute("SELECT username, coins FROM users WHERE id = ?", (user_id,)).fetchone()
+
+    if user:
+        username = user[0]
+        coins = user[1]
+
+    if (request.method == "POST"):
+        feedback = request.form.get("feedack")
+
+        if feedback:
+            db.execute("INSERT into feedbacks (feedback) VALUES (?)",(feedback))
+            db.commit()
+            flash("We appreciate your feedback, Thank you!!")
+            return redirect("about.html")
+        elif feedback.len() <= 5:
+            flash("Invalid feedback, would you please try again.")
+
+    return render_template("about.html", username=username, coins=coins)
+
+
 @app.route('/logout')
 def logout():
 
@@ -319,9 +349,8 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
     # Use livereload to auto-reload on code changes
     server = Server(app.wsgi_app)
     server.watch('static/')  # Watches the 'static' folder
     server.watch('templates/')  # Watches the 'templates' folder
-    server.serve(port=5000, debug=True)
+    server.serve(host ='0.0.0.0', port=5000, debug=True)

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block main %}
+<div class="about-section">
+    <h1 class="about-title">Flash Portal</h1>
+    
+    <div class="about-grid">
+        <div class="about-card">
+            <h4>Welcome to Flash Revival Games</h4>
+            <p>This project brings back the joy of classic Flash games to a modern audience. Built as part of my CS50 final project, this website celebrates nostalgia while providing a fresh, engaging experience.</p>
+        </div>
+
+        <div class="about-card">
+            <h4>Project Goals</h4>
+            <p>• Play classic Flash games directly in your browser</p>
+            <p>• User accounts for saving progress and achievements</p>
+            <p>• Earn coins by completing challenges and unlock new games (Coming soon)</p>
+        </div>
+
+        <div class="about-card">
+            <h4>Technology Stack</h4>
+            <div class="tech-stack">
+                <span class="tech-badge">HTML</span>
+                <span class="tech-badge">CSS</span>
+                <span class="tech-badge">Bootstrap</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Flask</span>
+                <span class="tech-badge">SQLite</span>
+                <span class="tech-badge">Git</span>
+            </div>
+        </div>
+
+        <div class="about-card">
+            <h4>Challenges and Learning</h4>
+            <p>Building this project was an enriching experience. Integrating a transaction system and managing user progression were particularly challenging but allowed me to deepen my understanding in backend logic and database management.</p>
+        </div>
+
+        <div class="about-card">
+            <h4>About the Developer</h4>
+            <p>I'm a Computer Science student passionate about programming and web development. This project reflects my love for combining creativity with technology. I aim to continue building innovative projects that make a difference. <a href="https://ztew-rot.github.io/MY-WEB-PORTFOIO/index.html" class="developer-link">Learn more about me</a></p>
+        </div>
+
+        <div class="about-card">
+            <h4>Share Your Thoughts</h4>
+            <p>Your feedback helps improve this project further!</p>
+            <form action="/feedback" method="post" class="feedback-form">
+                <input type="text" name="feedback" placeholder="Share your feedback..." class="feedback-input">
+                <button type="submit" class="submit-button">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
