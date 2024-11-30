@@ -137,6 +137,10 @@ Add More Games: Expanding the game library.
 
 <li>
 Implement Leaderboards: Gamify the experience with global rankings.
+</li> 
+
+<li>
+Daily Challenge System: Complete challenges to earn coins and unlock new games.
 </li>    
     
 <li>
