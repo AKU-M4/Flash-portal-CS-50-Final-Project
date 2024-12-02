@@ -52,7 +52,7 @@ Here’s a quick preview of how the Flash Portal works! Watch the navigation thr
 | **Languages**      | ![HTML](https://img.shields.io/badge/-HTML-orange) ![CSS](https://img.shields.io/badge/-CSS-blue) ![JavaScript](https://img.shields.io/badge/-JavaScript-yellow) ![Python](https://img.shields.io/badge/-Python-green) |
 | **Frameworks**     | ![Flask](https://img.shields.io/badge/-Flask-black) ![Bootstrap](https://img.shields.io/badge/-Bootstrap-purple) |
 | **Database**       | ![SQLite](https://img.shields.io/badge/-SQLite-lightblue) |
-| **Other Tools**    | Jinja2, Flask-WTF                        |
+| **Other Tools**    | Jinja2, Flask-WTF, Ruffle                     |
 
 
 ---
