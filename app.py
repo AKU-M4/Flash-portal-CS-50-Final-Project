@@ -1,8 +1,8 @@
 from flask import session, request, render_template, Flask, url_for, redirect, flash
-from livereload import Server
+##from livereload import Server
 from helpers import get_game_data, insert_game_in_db, get_db_connection, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_session import Session
+##from flask_session import Session
 import os
 from sqlite3 import connect
 
@@ -11,7 +11,7 @@ app.secret_key = os.getenv("SECRET_KEY", "fallback_key_for_dev_only")
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+##Session(app)
 
 # Path to games and database connection
 game_path = 'static/games'
