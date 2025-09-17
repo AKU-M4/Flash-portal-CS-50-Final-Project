@@ -138,14 +138,18 @@ README.md        # Project documentation
     # OR
     .\venv\Scripts\activate     # On Windows
     ```
-    All required dependencies are already installed in the virtual environment.
-
-4. **Run the Flask server:**
+    
+4. **Install all the python dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+5. **Run the Flask server:**
     ```bash
     flask run
     ```
 
-5. **Access the web app:**
+6. **Access the web app:**
     Open your browser and go to http://127.0.0.1:5000
 
 ---
