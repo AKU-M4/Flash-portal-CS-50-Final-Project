@@ -1,6 +1,8 @@
-# **🎮 Flash Portal**  
+<h1 align="center">
+    🎮 Flash Portal  
+</h1>
 
-*Your gateway to nostalgic gaming.* 
+<i align="center">Your gateway to nostalgic gaming</i> 
 
 ![flash portal banner1](https://github.com/user-attachments/assets/ab4fa7ee-c8d8-4824-bbda-2cbbb19e9be3)
 
